@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Foundation
-import Synchronization
+import os
 
 /// The HTTP seam ``ClaudeClient`` talks through. Production uses
 /// ``URLSessionTransport``; tests inject a fake. The streaming body is surfaced
@@ -86,7 +86,7 @@ final class RedirectPolicy: NSObject, URLSessionTaskDelegate, Sendable {
   /// Nil when the request had no usable URL, in which case nothing is
   /// followed.
   private let origin: Authority?
-  private let refusedTarget = Mutex<URL?>(nil)
+  private let refusedTarget = OSAllocatedUnfairLock<URL?>(initialState: nil)
 
   init(origin: URL?) {
     self.origin = origin.flatMap { Authority($0) }

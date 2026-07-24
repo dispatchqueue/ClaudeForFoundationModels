@@ -6,10 +6,12 @@ import PackageDescription
 
 let package = Package(
   name: "ClaudeForFoundationModels",
-  // Every OS where Foundation Models supports server-side language models.
-  // Spelled as strings because the .v27 constants require tools-version 6.4.
+  // The bridge remains availability-gated to OS 27, while the lower iOS and
+  // macOS declarations allow apps supporting older releases to weak-link it.
+  // Version strings are used because the corresponding constants require
+  // newer PackageDescription APIs.
   platforms: [
-    .iOS("27.0"), .macOS("27.0"), .visionOS("27.0"), .watchOS("27.0"),
+    .iOS("16.0"), .macOS("13.0"), .visionOS("27.0"), .watchOS("27.0"),
   ],
   products: [
     .library(name: "ClaudeForFoundationModels", targets: ["ClaudeForFoundationModels"])

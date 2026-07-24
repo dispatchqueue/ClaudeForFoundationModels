@@ -16,6 +16,10 @@ import FoundationModels
 @main
 struct ClaudeExample {
   static func main() async {
+    guard #available(iOS 27.0, macOS 27.0, visionOS 27.0, watchOS 27.0, *) else {
+      fail("ClaudeExample requires OS 27 or newer.")
+    }
+
     guard
       let key = ProcessInfo.processInfo.environment["ANTHROPIC_API_KEY"],
       !key.isEmpty
